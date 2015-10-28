@@ -7,6 +7,34 @@ import java.util.ArrayList;
 public class MyMathFunctions {
    static final double Small = 0.0001;
 
+    static public double sqrt(double x)
+   {
+      double result = 1.0;
+      double testFrom = 1.0, testTo = x / 2.0;
+
+      result = testFrom;
+      final double Small = 0.00000001;
+      double diff;
+      do
+      {
+         diff = result * result - x;
+
+         if (Math.abs(diff) < Small)
+            break;
+         result = (result + x / result) / 2;
+
+      } while (true);
+
+      return result;
+   }
+
+   public static void testSqrt()
+   {
+      System.out.println("4 sqrt is " + sqrt(4));
+      System.out.println("9 sqrt is " + sqrt(9));
+
+   }
+   
    static public double getFactorial(double x) {
       if (x < 0)
          throw new IllegalArgumentException("Must not be negative");
