@@ -1,0 +1,86 @@
+package mytestpackage;
+
+import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+
+public class MyMathFunctions {
+   static final double Small = 0.0001;
+
+   static public double getFactorial(double x) {
+      if (x < 0)
+         throw new IllegalArgumentException("Must not be negative");
+      double result;
+      if (x == 0)
+         return 1;
+      if (x == 1)
+         return 1;
+
+      result = x * getFactorial(x - 1.0);
+      return result;
+   }
+
+   static public void testFactorial() {
+      assertEquals(1.0, getFactorial(0), Small);
+      assertEquals(1.0, getFactorial(1), Small);
+      assertEquals(2.0, getFactorial(2), Small);
+      assertEquals(2 * 3, getFactorial(3), Small);
+      assertEquals(2 * 3 * 4 * 5, getFactorial(5), Small);
+      assertEquals(2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10, getFactorial(10), Small);
+      System.out.println("100! is " + getFactorial(100));
+   }
+
+   static public void testCheckIsPrimeNumber()
+   {
+      for(int i=0;i<21;i++)
+      {
+         System.out.println(i+": "+isPrimeNumber(i));
+      }
+   }
+   
+   static public ArrayList<Integer> getPrimeNumbersBefore(int x) {
+      ArrayList<Integer> al = new ArrayList<Integer>();
+
+      return al;
+   }
+
+   static public boolean isPrimeNumber(int x) {
+
+      if (x == 1 || x == 2 || x == 3 || x == 5) {
+         return true;
+      }
+
+      if (x % 2 == 0)
+         return false;
+
+      int test=3; int stopAt = x/2;
+      do {
+         if( x%test == 0 ) return false;
+         test++;
+         
+      } while (test< stopAt );
+
+      return true;
+   }
+
+   // al stores all prime numbers
+   static public ArrayList<Integer> getPrimeNumbers(int x) {
+      ArrayList<Integer> al = new ArrayList<Integer>();
+
+      if (x == 1) {
+         al.add(1);
+         return al;
+      }
+      int prime = 2;
+      int xtemp=x;
+      /*
+      do {
+         if(xtemp<=1)break;
+         xtemp= xtemp/
+         int mod = x % prime;
+
+      } while (true);
+      */
+      return al;
+   }
+}

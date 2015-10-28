@@ -1,0 +1,91 @@
+package mytestpackage;
+
+import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+
+public class MyMathFunctions {
+   static final double Small = 0.0001;
+
+   static public double getFactorial(double x) {
+      if (x < 0)
+         throw new IllegalArgumentException("Must not be negative");
+      double result;
+      if (x == 0)
+         return 1;
+      if (x == 1)
+         return 1;
+
+      result = x * getFactorial(x - 1.0);
+      return result;
+   }
+
+   static public void testFactorial() {
+      assertEquals(1.0, getFactorial(0), Small);
+      assertEquals(1.0, getFactorial(1), Small);
+      assertEquals(2.0, getFactorial(2), Small);
+      assertEquals(2 * 3, getFactorial(3), Small);
+      assertEquals(2 * 3 * 4 * 5, getFactorial(5), Small);
+      assertEquals(2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10, getFactorial(10), Small);
+      System.out.println("100! is " + getFactorial(100));
+   }
+
+   static public void testCheckIsPrimeNumber() {
+      int i = 11;
+      for (i = 2; i < 101; i++)
+         System.out.println("" + i + ": " + isPrimeNumber(i));
+
+   }
+
+   static public boolean isPrimeNumber(int x) {
+
+      if (x == 0 || x == 1 || x == 2 || x == 3 || x == 5) {
+         return true;
+      }
+
+      int test = 2;
+      int stopAt = x / 2 + 1;
+      do {
+         if (x % test == 0)
+            return false;
+         test++;
+
+      } while (test <= stopAt);
+
+      return true;
+   }
+
+   // al stores all prime numbers
+   static public ArrayList<Integer> getPrimeFactor(int x) {
+      ArrayList<Integer> answerAl = new ArrayList<Integer>();
+
+      ArrayList<Integer> allPrimeAl = new ArrayList<Integer>();
+
+      // Step1 get all Possible prime numbers for x ( so 2, 3.... to x/2 )
+      // Step 2 check each of them, put the correct one to answerAl
+
+      // Step1
+
+      int tempPrime = 2;
+
+      do {
+         if (isPrimeNumber(tempPrime)) {
+            allPrimeAl.add(tempPrime);
+            if (x % tempPrime == 0)
+               allPrimeAl.add(tempPrime);
+         }
+
+         // stop when meat half x
+      } while (tempPrime <= x / 2);
+
+      return allPrimeAl;
+   }
+
+   public static void testGetPrimeFactor(int x) {
+
+      ArrayList<Integer> al = getPrimeFactor(x);
+      System.out.println( al.toString() );
+   }
+   
+   
+}

@@ -114,7 +114,8 @@ public class MyMainClass
       //MyHashMap.test();
       //SubStringFind.test();
       //BinSearch.test();
-      NestedListSumTest.test();
+      //NestedListSumTest.test();
+      MyMathFunctions.test();
    }
 
 }

@@ -1,0 +1,10 @@
+package mytestpackage;
+
+public class MyMathFunctions {
+	
+	static public double getFactorial(int x)
+	{
+		
+	}
+
+}

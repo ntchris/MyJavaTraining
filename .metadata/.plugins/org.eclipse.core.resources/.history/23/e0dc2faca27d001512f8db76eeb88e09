@@ -1,0 +1,33 @@
+package mytestpackage;
+
+import static org.junit.Assert.*;
+
+
+public class MyMathFunctions {
+static final double  Small=0.0001;
+
+	static public double getFactorial(double x) {
+		if (x < 0)
+			throw new IllegalArgumentException("Must not be negative");
+		double result;
+		if (x == 0)
+			return 1;
+		if (x == 1)
+			return 1;
+
+		result = x *  getFactorial(x - 1.0);
+		return result;
+	}
+
+	
+	static public void testFactorial() {
+		assertEquals(1.0, getFactorial(0), Small);
+		assertEquals(1.0, getFactorial(1), Small);
+		assertEquals(2.0, getFactorial(2), Small);
+		assertEquals(2*3, getFactorial(3), Small);
+		assertEquals(2*3*4*5, getFactorial(5), Small);
+		assertEquals(2*3*4*5*6*7*8*9*10, getFactorial(10), Small);
+
+	}
+
+}
