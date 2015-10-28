@@ -59,26 +59,26 @@ public class MyMathFunctions {
    static public ArrayList<Integer> getPrimeFactor(int x) {
       ArrayList<Integer> answerAl = new ArrayList<Integer>();
 
+      ArrayList<Integer> allPrimeAl = new ArrayList<Integer>();
+
       // Step1 get all Possible prime numbers for x ( so 2, 3.... to x/2 )
       // Step 2 check each of them, put the correct one to answerAl
 
       // Step1
 
       int tempPrime = 2;
-      int tempx = x;
-      System.out.print( ""+x+":  ");
+
       do {
          if (isPrimeNumber(tempPrime)) {
+
+            allPrimeAl.add(tempPrime);
+            int tempx = x;
             do {
-               // continue to add the prime if it contains more , ie. 100=10*10,
-               // 27=3*3*3
+               //continue to add the prime if it contains more , ie.  100=10*10, 27=3*3*3
                if (tempx % tempPrime == 0) {
                   answerAl.add(tempPrime);
-                  System.out.print( " "+tempPrime + " ");
-
                   tempx = tempx / tempPrime;
                } else {
-
                   break;
                }
             } while (true);
@@ -91,17 +91,10 @@ public class MyMathFunctions {
       return answerAl;
    }
 
-   static public void getPrimeFactorRecurse(int x, ArrayList al) {
-
-   }
-
    public static void testGetPrimeFactor(int x) {
 
       ArrayList<Integer> al = getPrimeFactor(x);
-      
-      System.out.println();
-      
-      //System.out.println(al.toString());
+      System.out.println(al.toString());
    }
 
    public static void test() {
@@ -109,8 +102,7 @@ public class MyMathFunctions {
       testGetPrimeFactor(8);
       testGetPrimeFactor(10);
       testGetPrimeFactor(20);
-      testGetPrimeFactor(100);
-      testGetPrimeFactor(10002);
+      testGetPrimeFactor(50);
 
    }
 }

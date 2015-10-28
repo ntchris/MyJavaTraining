@@ -110,7 +110,6 @@ public class MyMathFunctions {
       testGetPrimeFactor(10);
       testGetPrimeFactor(20);
       testGetPrimeFactor(100);
-      testGetPrimeFactor(10002);
 
    }
 }

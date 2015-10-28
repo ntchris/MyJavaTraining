@@ -109,8 +109,7 @@ public class MyMathFunctions {
       testGetPrimeFactor(8);
       testGetPrimeFactor(10);
       testGetPrimeFactor(20);
-      testGetPrimeFactor(100);
-      testGetPrimeFactor(10002);
+      testGetPrimeFactor(50061230);
 
    }
 }

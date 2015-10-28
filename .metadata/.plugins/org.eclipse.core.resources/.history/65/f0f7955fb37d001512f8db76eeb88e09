@@ -66,19 +66,17 @@ public class MyMathFunctions {
 
       int tempPrime = 2;
       int tempx = x;
-      System.out.print( ""+x+":  ");
       do {
          if (isPrimeNumber(tempPrime)) {
+
+           
             do {
                // continue to add the prime if it contains more , ie. 100=10*10,
                // 27=3*3*3
                if (tempx % tempPrime == 0) {
                   answerAl.add(tempPrime);
-                  System.out.print( " "+tempPrime + " ");
-
                   tempx = tempx / tempPrime;
                } else {
-
                   break;
                }
             } while (true);
@@ -98,10 +96,7 @@ public class MyMathFunctions {
    public static void testGetPrimeFactor(int x) {
 
       ArrayList<Integer> al = getPrimeFactor(x);
-      
-      System.out.println();
-      
-      //System.out.println(al.toString());
+      System.out.println(al.toString());
    }
 
    public static void test() {
@@ -109,8 +104,7 @@ public class MyMathFunctions {
       testGetPrimeFactor(8);
       testGetPrimeFactor(10);
       testGetPrimeFactor(20);
-      testGetPrimeFactor(100);
-      testGetPrimeFactor(10002);
+      testGetPrimeFactor(50);
 
    }
 }
