@@ -27,6 +27,18 @@ public class LongestSubstringSolution {
    static public void test() {
       
       
+      String testStringa = "a";
+      int answera = lengthOfLongestSubstringHashMap(testStringa);
+      System.out.println("Test string is " + testStringa + " answer is " + answera);
+      assertEquals(1, answera);
+  
+      
+      String testStringau = "au";
+      int answerau = lengthOfLongestSubstringHashMap(testStringau);
+      System.out.println("Test string is " + testStringau + " answer is " + answerau);
+      assertEquals(2, answerau);
+  
+      
       String testString5 = "abccccca";
       int answer5 = lengthOfLongestSubstringHashMap(testString5);
       System.out.println("Test string is " + testString5 + " answer is " + answer5);
@@ -118,9 +130,12 @@ public class LongestSubstringSolution {
    }
 
    static public int lengthOfLongestSubstringHashMap(String str) {
+      
+      if(str.length()<=1) return str.length();
+      
       HashMap<Integer, Integer> hmap = new HashMap<Integer, Integer>();
       int i;
-      for (i = 0; i < str.length() - 1; i++) {
+      for (i = 0; i < str.length() ; i++) {
 
          int ch = str.charAt(i);
 
