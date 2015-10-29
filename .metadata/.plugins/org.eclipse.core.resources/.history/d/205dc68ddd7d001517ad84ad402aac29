@@ -1,0 +1,360 @@
+package myjavatraining;
+
+import java.util.ArrayList;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+public class MyBinSearchTree
+{
+
+   class BstNode
+   {
+      int mData;
+
+      BstNode mLess;
+
+      BstNode mGreater;
+
+      BstNode(int data)
+      {
+         mData = data;
+      }
+   };
+
+   BstNode mRoot;
+
+   public BstNode makeBinSearchTree(int[] array)
+   {
+      // reset
+      mRoot = null;
+      if (array.length == 0)
+      {
+         return mRoot;
+      }
+      System.out.print("adding array:");
+
+      for (int data : array)
+      {
+         System.out.print(data + " ");
+         // keep adding the data into the tree in correct order
+         addNode(mRoot, data);
+      }
+
+      return mRoot;
+
+   }
+
+   // add a new node into the bst tree
+   void addNode(BstNode parent, int data)
+   {
+
+      // if it's the first node, it's root
+      if (mRoot == null)
+      {
+         mRoot = new BstNode(data);
+
+         return;
+      }
+
+      if (data < parent.mData)
+      {
+         if (parent.mLess == null)
+         {
+            parent.mLess = new BstNode(data);
+         } else
+         {
+            addNode(parent.mLess, data);
+         }
+
+      } else
+      {
+         if (parent.mGreater == null)
+         {
+            parent.mGreater = new BstNode(data);
+         } else
+         {
+            addNode(parent.mGreater, data);
+         }
+      }
+
+      return;
+   }
+
+   void inOrderTraversBst(BstNode node, ArrayList al)
+   {
+      if (node == null)
+         return;
+
+      inOrderTraversBst(node.mLess, al);
+      al.add(node.mData);
+      inOrderTraversBst(node.mGreater, al);
+
+   }
+
+   ArrayList bstToArray()
+   {
+      ArrayList al = new ArrayList();
+
+      inOrderTraversBst(mRoot, al);
+
+      return al;
+
+   }
+
+   BstNode traversBstFindTargetPlus(BstNode checkNode, int targetValue, BstNode candidate)
+   {
+      // first, we need to find the target node (not the real targetplus)
+
+      // the mRoot is the first candidate for targetPlus
+      if (candidate == null)
+      {
+         candidate = mRoot;
+      }
+
+      if (checkNode == null)
+      {
+         // not found target node!
+         return null;
+      }
+
+      if (targetValue == checkNode.mData)
+      {
+         // now, target is found!!
+         // do a lot to find the targetPlus
+         // A. if target node has a greater child, then the targetplus must in
+         // target's greater->smallest(grandchildren)
+         if (checkNode.mGreater != null)
+         {
+            BstNode targetPlus = checkNode.mGreater;
+            // deal with A
+            while (targetPlus.mLess != null)
+            {
+               targetPlus = targetPlus.mLess;
+            }
+            // until it reaches end, the targetPlus is the right answer
+            return targetPlus;
+
+         } else // targetNode.mGreater==null
+         {
+            // so the targetPlus must be its parent(or grand par)
+            return candidate;
+         }
+
+      } else if (targetValue > checkNode.mData)
+      {
+         return traversBstFindTargetPlus(checkNode.mGreater, targetValue, candidate);
+
+      } else // target is less than current node ( current node > target)
+      {
+         // so this node is the target's parent it could be the targetplus
+         // candidate = checkNode;
+
+         return traversBstFindTargetPlus(checkNode.mLess, targetValue, checkNode);
+      }
+
+   }
+
+   BstNode getTargetPlus(int data)
+   {
+
+      BstNode targetPlus = traversBstFindTargetPlus(mRoot, data, null);
+
+      return targetPlus;
+   }
+
+   static public void test3()
+   {
+      int array1[] =
+      { 10, 8, 12, 6, 9, 11, 15 };
+      MyBinSearchTree bst = new MyBinSearchTree();
+      BstNode root = bst.makeBinSearchTree(array1);
+      System.out.print(" bst to array: ");
+
+      ArrayList al = bst.bstToArray();
+      for (int i = 0; i < al.size(); i++)
+      {
+         String data = al.get(i).toString();
+         System.out.print(data + " ");
+      }
+
+      System.out.println();
+
+      BstNode tp = bst.getTargetPlus(10);
+      if (tp == null)
+      {
+         System.out.println("target is not found");
+      }
+      System.out.println("target is 10 and targetPlus is " + tp.mData);
+      assertEquals(11, tp.mData);
+
+      BstNode tp2 = bst.getTargetPlus(9);
+      if (tp2 == null)
+      {
+         System.out.println("target is not found");
+      }
+      System.out.println("target is 9 and targetPlus is " + tp2.mData);
+      assertEquals(10, tp2.mData);
+
+      BstNode tp3 = bst.getTargetPlus(6);
+      if (tp3 == null)
+      {
+         System.out.println("target is not found");
+      }
+      System.out.println("target is 6 and targetPlus is " + tp3.mData);
+      assertEquals(8, tp3.mData);
+
+      BstNode tp4 = bst.getTargetPlus(12);
+      if (tp4 == null)
+      {
+         System.out.println("target is not found");
+      }
+      System.out.println("target is 12 and targetPlus is " + tp4.mData);
+      assertEquals("target Plus is wrong ", 15, tp4.mData);
+
+      BstNode tp5 = bst.getTargetPlus(1);
+      if (tp5 == null)
+      {
+         System.out.println("target is not found, expect a null targetPlus");
+      }
+      assertNull(tp5);
+
+      BstNode tp6 = bst.getTargetPlus(1);
+      if (tp6 == null)
+      {
+         System.out.println("target is not found, expect a null targetPlus");
+      }
+      assertNull(tp6);
+   }
+
+   static public void test1()
+   {
+      int array1[] =
+      { 1, 0, 3, 2 };
+      MyBinSearchTree bst = new MyBinSearchTree();
+      BstNode root = bst.makeBinSearchTree(array1);
+      ArrayList al = bst.bstToArray();
+
+      System.out.print(" bst to array: ");
+
+      for (int i = 0; i < al.size(); i++)
+      {
+         String data = al.get(i).toString();
+         System.out.print(data + " ");
+      }
+
+   }
+
+   static public void test2()
+   {
+      int array1[] =
+      { 10, 8, 12, 6, 9, 12, 11, 15 };
+      MyBinSearchTree bst = new MyBinSearchTree();
+      BstNode root = bst.makeBinSearchTree(array1);
+      System.out.print(" bst to array: ");
+
+      ArrayList al = bst.bstToArray();
+      for (int i = 0; i < al.size(); i++)
+      {
+         String data = al.get(i).toString();
+         System.out.print(data + " ");
+      }
+
+   }
+
+   static public void test()
+   {
+        
+      testMakeMinHeightBst();
+      /*
+       * test1(); System.out.println(); test2(); System.out.println(); test3();
+       * System.out.println();
+       */
+   }
+
+   public BstNode recurseAddArray(int[] sortedArray, int startIdx, int endIdx)
+   {
+      // invalid scenario
+      if (startIdx > endIdx)
+         return null;
+
+      // could cause midIndex-1 = -1
+      if (startIdx == endIdx)
+      {
+         // but has been covered by
+         return new BstNode(sortedArray[startIdx]);
+      }
+
+      int midIndex = (endIdx + startIdx) / 2;
+      int midValue = sortedArray[midIndex];
+
+      BstNode root = new BstNode(midValue);
+
+      root.mLess = recurseAddArray(sortedArray, startIdx, midIndex - 1);
+      root.mGreater = recurseAddArray(sortedArray, midIndex + 1, endIdx);
+
+      return root;
+
+   }
+
+   public void makeMinHeightBst(int[] sortedArray)
+   {
+      this.mRoot = null;
+
+      if (sortedArray.length == 0)
+         return;
+
+      this.mRoot = recurseAddArray(sortedArray, 0, sortedArray.length - 1);
+
+   }
+
+   public static void testMakeMinHeightBst(int[] sortedarray)
+   {
+
+      MyBinSearchTree bst = new MyBinSearchTree();
+      bst.makeMinHeightBst(sortedarray);
+
+      ArrayList al = bst.breadthFirstTraversBst();
+      for (int i = 0; i < al.size(); i++)
+      {
+         String data = al.get(i).toString();
+         System.out.print(data + " ");
+      }
+   }
+
+   public static void testMakeMinHeightBst()
+   {
+      int array1[] =
+      { 1, 2, 3 ,4 ,5,6,7 };
+      testMakeMinHeightBst(array1);
+
+      System.out.println();
+
+      int array2[] =
+      { 1 };
+      testMakeMinHeightBst(array2);
+
+      int[] array3 =
+      {};
+      testMakeMinHeightBst(array3);
+   }
+
+   ArrayList breadthFirstTraversBst()
+   {
+      ArrayList al = new ArrayList();
+      MyQueue q = new MyQueue(100);
+      q.enqueue(this.mRoot);
+
+      while (!q.isQueueEmpty())
+      {
+         BstNode node = (BstNode) q.dequeue();
+         if (node != null)
+         {
+            al.add(node.mData);
+            q.enqueue(node.mLess);
+            q.enqueue(node.mGreater);
+         }
+      }
+      return al;
+   }
+
+}

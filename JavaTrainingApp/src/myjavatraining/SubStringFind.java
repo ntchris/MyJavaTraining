@@ -1,0 +1,74 @@
+package myjavatraining;
+
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+/**
+ * 
+ * 
+ * @author ntchris@hotmail.com
+ * 
+ *         Chris
+ * 
+ *         28 Oct 2015
+ *
+ */
+
+public class SubStringFind {
+   // return -1 if not found,
+   // return index of the substring
+   public static int findSubString(String strlong, String substr) {
+      int index = 0;
+
+      do {
+         int matchCount = getMatchCount(strlong, index, substr);
+         // fully match
+         if (matchCount == substr.length())
+            return index;
+         else {
+            if (matchCount == 0)
+               index++;
+            else
+               index += matchCount;
+
+            if (index > (strlong.length() - substr.length()))
+               break;
+         }
+      } while (true);
+      return -1;
+   }
+
+   static int getMatchCount(String strlong, int startIndex, String substr) {
+      int matchCount = 0;
+
+      for (int i = 0; i < substr.length(); i++) {
+         if ((startIndex + i) >= strlong.length())
+            break;
+         if (strlong.charAt(startIndex + i) == substr.charAt(i))
+            matchCount++;
+         else
+            break;
+      }
+
+      return matchCount;
+   }
+
+   static void testFindSubString(String longstr, String substr, int expectIndex) {
+      int index = findSubString(longstr, substr);
+      assertEquals(expectIndex, index);
+   }
+
+   static void test() {
+      testFindSubString("abcdefg", "a", 0);
+
+      testFindSubString("abcdefg", "ab", 0);
+      testFindSubString("abcdefg", "b", 1);
+      testFindSubString("abcdefg", "c", 2);
+      testFindSubString("abcdefg", "d", 3);
+      testFindSubString("aaaaabcdaaaaaefg", "aaaaae", 8);
+      testFindSubString("aaaaabcdaaaaaefg", "aaaaah", -1);
+      testFindSubString("abcd", "abcef", -1);
+      testFindSubString("abcd", "z", -1);
+
+   }
+}
