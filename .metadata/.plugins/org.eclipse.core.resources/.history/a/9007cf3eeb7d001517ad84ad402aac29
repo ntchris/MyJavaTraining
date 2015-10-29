@@ -1,0 +1,133 @@
+package myjavatraining;
+
+import static org.junit.Assert.*;
+
+/**
+ * 
+ * 
+ * @author ntchris@hotmail.com
+ * 
+ *         Chris
+ * 
+ *         28 Oct 2015
+ *
+ */
+
+/**
+ * Question: Given a string, find the length of the longest substring without
+ * repeating characters. For example, the longest substring (from the
+ * beginning!!) without repeating letters for "abcabcbb" is "abc", which the
+ * length is 3. For "bbbbb" the longest substring is "b", with the length of 1.
+ */
+
+public class LongestSubstringSolution {
+
+   static public void test() {
+      String testString = "abcdefgg";
+      int answer = lengthOfLongestSubstringRetry(testString);
+      System.out.println("Test string is " + testString + " answer is " + answer);
+      assertEquals(7, answer);
+
+      String testString2 = "abcbbbbba";
+      int answer2 = lengthOfLongestSubstringz(testString2);
+      System.out.println("Test string is " + testString2 + " answer is " + answer2);
+      assertEquals(3, answer2);
+
+      answer = lengthOfLongestSubstringRetry(testString);
+      System.out.println("Test string is " + testString + " answer is " + answer);
+
+      answer2 = lengthOfLongestSubstringRetry(testString2);
+      System.out.println("Test string is " + testString2 + " answer is " + answer2);
+
+   }
+
+   
+   //using hashmap is clean, but need more memory
+   //using loop / loop is messy, but use less memory (space O(1) )
+   
+   
+   // This is wrong, can't deal with abbbbbbbbbbba 
+   static public int lengthOfLongestSubstringRetry(String str) {
+
+      int len = 0;
+
+      int max = str.length();
+      // if str is a , so just 1 is the len of the max sub without repeating
+      // char
+      if (max <= 1)
+         return max;
+
+      int i;
+      for (i = 0; i < max; i++) {
+         char chToBeChecked = str.charAt(i);
+         String leftString = str.substring(i + 1);
+         int hasChar = leftString.indexOf(chToBeChecked);
+
+         if (hasChar >= 0) {
+            // has char, end of search, current i
+            break;
+         } else {
+            // not dup char, continue
+         }
+      }
+      len = i + 1;
+      return len;
+   }
+   
+   // This is wrong, can't deal with abbbbbbbbbbba 
+
+   static public int lengthOfLongestSubstring(String str) {
+      int len = 0;
+      int fullLen = str.length();
+      if (fullLen == 1) {
+         return fullLen;
+      }
+      int i;
+      for (i = 0; i < fullLen - 1; i++) {
+         char ch = str.charAt(i);
+
+         String subString = str.substring(i + 1);
+
+         int dupIndex = subString.indexOf(ch);
+         if (dupIndex != -1) {
+            len = i + dupIndex + 1;
+            break;
+         }
+      }
+
+      return len;
+
+   }
+
+   static public int lengthOfLongestSubstringOn(String str) {
+      int len = 0;
+      int fullLen = str.length();
+      if (fullLen == 1) {
+         return fullLen;
+      }
+
+      int i;
+
+      int[] storedIndex = new int[255];
+
+      for (i = 0; i < 255; i++) {
+         storedIndex[i] = -1;
+      }
+
+      for (i = 0; i < fullLen; i++) {
+         char ch = str.charAt(i);
+
+         if (storedIndex[ch] < 0) {
+            storedIndex[ch] = i;
+         } else {
+            // found a dup ch.
+            break;
+         }
+
+      }
+
+      return i;
+
+   }
+
+}

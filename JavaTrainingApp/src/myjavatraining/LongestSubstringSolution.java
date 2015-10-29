@@ -1,5 +1,9 @@
 package myjavatraining;
 
+import static org.junit.Assert.*;
+
+import java.util.HashMap;
+
 /**
  * 
  * 
@@ -11,23 +15,84 @@ package myjavatraining;
  *
  */
 
+/**
+ * Question: Given a string, find the length of the longest substring without
+ * repeating characters. For example, the longest substring (from the
+ * beginning!!) without repeating letters for "abcabcbb" is "abc", which the
+ * length is 3. For "bbbbb" the longest substring is "b", with the length of 1.
+ */
+
 public class LongestSubstringSolution {
+
    static public void test() {
+      
+      
+      String testString5 = "abccccca";
+      int answer5 = lengthOfLongestSubstringHashMap(testString5);
+      System.out.println("Test string is " + testString5 + " answer is " + answer5);
+      assertEquals(3, answer5);
+      
+      String testString6 = "abcd ccca";
+      int answer6 = lengthOfLongestSubstringHashMap(testString6);
+      System.out.println("Test string is " + testString6 + " answer is " + answer6);
+      assertEquals(5, answer6);
+   
+      
       String testString = "abcdefgg";
-      int answer = lengthOfLongestSubstring(testString);
+      int answer = lengthOfLongestSubstringHashMap(testString);
       System.out.println("Test string is " + testString + " answer is " + answer);
+      assertEquals(7, answer);
 
-      String testString2 = "abcabcbb";
-      int answer2 = lengthOfLongestSubstring(testString2);
+      String testString2 = "abcbbbbba";
+      int answer2 = lengthOfLongestSubstringHashMap(testString2);
       System.out.println("Test string is " + testString2 + " answer is " + answer2);
+      assertEquals(3, answer2);
 
-      answer = lengthOfLongestSubstringOn(testString);
-      System.out.println("Test string is " + testString + " answer is " + answer);
+      String testString3 = "aaaaa";
+      int answer3 = lengthOfLongestSubstringHashMap(testString3);
+      System.out.println("Test string is " + testString3 + " answer is " + answer3);
+      assertEquals(1, answer3);
 
-      answer2 = lengthOfLongestSubstringOn(testString2);
-      System.out.println("Test string is " + testString2 + " answer is " + answer2);
+      String testString4 = "abaaa";
+      int answer4 = lengthOfLongestSubstringHashMap(testString4);
+      System.out.println("Test string is " + testString4 + " answer is " + answer4);
+      assertEquals(2, answer4);
 
+    
    }
+
+   // using hashmap is clean, but need more memory
+   // using loop / loop is messy, but use less memory (space O(1) )
+
+   // This is wrong, can't deal with abbbbbbbbbbba
+   static public int lengthOfLongestSubstringRetry(String str) {
+
+      int len = 0;
+
+      int max = str.length();
+      // if str is a , so just 1 is the len of the max sub without repeating
+      // char
+      if (max <= 1)
+         return max;
+
+      int i;
+      for (i = 0; i < max; i++) {
+         char chToBeChecked = str.charAt(i);
+         String leftString = str.substring(i + 1);
+         int hasChar = leftString.indexOf(chToBeChecked);
+
+         if (hasChar >= 0) {
+            // has char, end of search, current i
+            break;
+         } else {
+            // not dup char, continue
+         }
+      }
+      len = i + 1;
+      return len;
+   }
+
+   // This is wrong, can't deal with abbbbbbbbbbba
 
    static public int lengthOfLongestSubstring(String str) {
       int len = 0;
@@ -52,33 +117,23 @@ public class LongestSubstringSolution {
 
    }
 
-   static public int lengthOfLongestSubstringOn(String str) {
-      int len = 0;
-      int fullLen = str.length();
-      if (fullLen == 1) {
-         return fullLen;
-      }
-
+   static public int lengthOfLongestSubstringHashMap(String str) {
+      HashMap<Integer, Integer> hmap = new HashMap<Integer, Integer>();
       int i;
+      for (i = 0; i < str.length() - 1; i++) {
 
-      int[] storedIndex = new int[255];
+         int ch = str.charAt(i);
 
-      for (i = 0; i < 255; i++) {
-         storedIndex[i] = -1;
-      }
+         Integer count = hmap.get(ch);
 
-      for (i = 0; i < fullLen; i++) {
-         char ch = str.charAt(i);
-
-         if (storedIndex[ch] < 0) {
-            storedIndex[ch] = i;
-         } else {
-            // found a dup ch.
+         if (count == null) {
+            //the char is not in map 
+            hmap.put(ch, 1);
+         } else
+            // it's already there !! repeated char!!
             break;
-         }
 
       }
-
       return i;
 
    }

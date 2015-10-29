@@ -112,7 +112,9 @@ public class MyMainClass {
       // BinSearch.test();
       // NestedListSumTest.test();
       // MyMathFunctions.test();
-      MyBinaryTree.testPrintByLevel();
+      // MyBinaryTree.testPrintByLevel();
+      
+      LongestSubstringSolution.test();
    }
 
 }
