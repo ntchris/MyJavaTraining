@@ -114,7 +114,13 @@ public class MyMainClass {
       // MyMathFunctions.test();
       // MyBinaryTree.testPrintByLevel();
       
-      LongestSubstringSolution.test();
+      // StringQuestion.testLongestCommonPrefix();
+      
+      //TwoSumSolution.test();
+      
+      //LongestSubstringSolution.test();
+      LinkList.testMergeManyLinkList();
+      
    }
 
 }
