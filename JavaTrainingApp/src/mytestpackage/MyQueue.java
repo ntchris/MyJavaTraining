@@ -77,6 +77,10 @@ public class MyQueue
      * }
      */
 
+    public int size()
+    {
+       return this.size;
+    }
     /**
      * 
      * @return true if successful

@@ -1,0 +1,153 @@
+package mytestpackage;
+
+public class MyBinaryTree {
+
+   class BinTreeNode {
+      String mData;
+
+      BinTreeNode leftChild;
+
+      BinTreeNode rightChild;
+
+      BinTreeNode(String data) {
+         mData = data;
+      }
+
+   };
+
+   BinTreeNode root;
+
+   void accessData(String data) {
+      System.out.print(data + " ");
+
+   }
+
+   public void addLeftChild(BinTreeNode parentNode, BinTreeNode newChildNode) {
+      parentNode.leftChild = newChildNode;
+   }
+
+   public void addRightChild(BinTreeNode parentNode, BinTreeNode newChildNode) {
+      parentNode.rightChild = newChildNode;
+   }
+
+   public void addRoot(BinTreeNode newRootNode) {
+      this.root = newRootNode;
+   }
+
+   public void traverseDeepFirst(BinTreeNode node) {
+      if (node == null) {
+         return;
+      }
+      accessData(node.mData);
+
+      // access current node data
+
+      if (node.leftChild != null) {
+         traverseDeepFirst(node.leftChild);
+      }
+
+      if (node.rightChild != null) {
+         traverseDeepFirst(node.rightChild);
+      }
+
+   };
+
+   public void traverseBreadthFirst(BinTreeNode node) {
+      if (node == null) {
+         return;
+      }
+
+      MyQueue queue = new MyQueue(20);
+
+      queue.enqueue(node);
+
+      while (!queue.isQueueEmpty()) {
+         BinTreeNode tempNode = (BinTreeNode) queue.dequeue();
+
+         this.accessData(tempNode.mData);
+
+         if (tempNode.leftChild != null) {
+            queue.enqueue(tempNode.leftChild);
+         }
+
+         if (tempNode.rightChild != null) {
+            queue.enqueue(tempNode.rightChild);
+         }
+
+      }
+
+   };
+
+   public void makeDefaultBinTree() {
+      BinTreeNode root = new BinTreeNode("Root");
+      this.addRoot(root);
+
+      BinTreeNode left1 = new BinTreeNode("L1");
+      BinTreeNode right1 = new BinTreeNode("R1");
+
+      this.addLeftChild(root, left1);
+      this.addRightChild(root, right1);
+
+      this.addLeftChild(left1, new BinTreeNode("L1L2"));
+ 
+      BinTreeNode R1R2 = new BinTreeNode("R1R2");
+      BinTreeNode R1L2 = new BinTreeNode("R1L2");
+
+      this.addLeftChild(right1, R1L2);
+      this.addRightChild(right1, R1R2 );
+      
+      BinTreeNode R1L2R3 =  new BinTreeNode("R1R2R3");
+      this.addRightChild(R1L2, R1L2R3);
+      this.addRightChild(R1L2R3, new BinTreeNode("R1R2R3R4") );
+
+      
+
+   }
+
+   // can add all data into a stringbuffer, or just print it out.
+   public StringBuffer printByLevel() {
+      StringBuffer sbuff = new StringBuffer();
+
+      // Do a BFS, need a queue 
+      MyQueue que = new MyQueue(1000);
+      que.enqueue(this.root);
+      int nodesCountLastLevel = 1;// the root has one node.
+      int printedLevelNodeCount = 0;
+
+      while (!que.isQueueEmpty()) {
+
+         BinTreeNode tempNode = (BinTreeNode) que.dequeue();
+         if (tempNode != null) {
+            sbuff.append(tempNode.mData + " ");
+            printedLevelNodeCount++;
+            if (tempNode.leftChild != null) {
+               que.enqueue(tempNode.leftChild);
+            }
+            if (tempNode.rightChild != null) {
+               que.enqueue(tempNode.rightChild);
+            }
+
+         } // System.out.print(tempNode.mData);
+         if (printedLevelNodeCount == nodesCountLastLevel) {
+
+            sbuff.append("\n");
+            nodesCountLastLevel = que.size();
+            printedLevelNodeCount  = 0;
+         }
+
+      }
+      return sbuff;
+
+   }
+
+   public static void testPrintByLevel() {
+      MyBinaryTree bintree = new MyBinaryTree();
+
+      bintree.makeDefaultBinTree();
+
+      StringBuffer sbuff = bintree.printByLevel();
+
+      System.out.println(sbuff.toString());
+   }
+
+}

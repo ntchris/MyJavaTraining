@@ -13,8 +13,8 @@ public class MyMainClass
    public static void testBinTree()
    {
 
-      BinaryTree bintree = new BinaryTree();
-      bintree.makeDefaultBinTree();
+      MyBinaryTree bintree = new MyBinaryTree();
+      bintree.makeDefaultBinTree1();
 
       bintree.traverseBreadthFirst(bintree.root);
 
@@ -115,7 +115,8 @@ public class MyMainClass
       //SubStringFind.test();
       //BinSearch.test();
       //NestedListSumTest.test();
-      MyMathFunctions.test();
+      //MyMathFunctions.test();
+      MyBinaryTree.testPrintByLevel();
    }
 
 }
