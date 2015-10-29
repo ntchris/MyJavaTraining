@@ -1,5 +1,7 @@
 
 package myjavatraining;
+import static org.junit.Assert.*;
+
 
 /**
  * 
@@ -31,14 +33,17 @@ package myjavatraining;
  */
 
 public class TwoSumSolution {
-   static public int[] twoSum(int[] array, int target) {
+   static public int[] twoSum(int[] nums, int target) {
       int[] answer = null;
-      for (int index1 = 0; index1 < array.length; index1++) {
-         for (int index2 = 1; index2 < array.length; index2++) {
-            if (array[index1] + array[index2] == target) {
+      for (int index1 = 0; index1 < nums.length; index1++) {
+         for (int index2 = 1; index2 < nums.length; index2++) {
+            
+            //Note, index2 and index1 can not be the same.
+            if(index1 == index2) continue;
+            if (nums[index1] + nums[index2] == target) {
                answer = new int[2];
-               answer[0] = index1;
-               answer[1] = index2;
+               answer[0] = index1+1;
+               answer[1] = index2+1;
                return answer;
 
             }
@@ -48,5 +53,17 @@ public class TwoSumSolution {
 
       return answer;
 
+   }
+   
+   static public void test()
+   {
+      int []array=  {
+       
+      2,1,9,4,4,56,90,3};
+      
+      int []answer = twoSum(array, 8);
+      assertEquals(4, answer[0]);
+      assertEquals(5, answer[1]);
+      
    }
 }

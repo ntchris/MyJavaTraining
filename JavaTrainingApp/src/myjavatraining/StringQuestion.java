@@ -15,7 +15,19 @@ import static org.junit.Assert.*;
 
 public class StringQuestion {
 
-   // Question: No space at head or end or in between ?
+   // Question: Longest Palindromic Substring
+   // Given a string S, find the longest palindromic substring in S.
+   // You may assume that the maximum length of S is 1000,
+   // and there exists one unique longest palindromic substring.
+   public String longestPalindrome(String longstr) {
+      // Step1 find the candidate mid point
+      // step2 check if its.
+      return "";
+
+   }
+
+   // Question: Compress a string.
+   // Ask : No space at head or end or in between ?
    public static String comparessString(String inputStr) {
       StringBuffer output = new StringBuffer();
       int count = 0;
@@ -78,4 +90,128 @@ public class StringQuestion {
       testStringCompress("aaaabccccce", "a4b1c5e1");
 
    }
+
+   /**
+    * Reverse digits of an integer. Example1: x = 123, return 321 Example2: x =
+    * -123, return -321
+    */
+
+   static public int reverseInt(int x) {
+
+      int revX = 0;
+      StringBuffer revXstr = new StringBuffer();
+      Integer integer = new Integer(x);
+      String xstr = integer.toString();
+
+      // reverse xstr;
+      int startindex = 0;
+      if (xstr.charAt(0) == '-' | xstr.charAt(0) == '+') {
+         startindex = 1;
+         revXstr.append(xstr.charAt(0));
+      }
+
+      for (int i = xstr.length() - 1; i >= startindex; i--) {
+         revXstr.append(xstr.charAt(i));
+      }
+      try {
+         revX = Integer.parseInt(revXstr.toString());
+      } catch (Exception e) {
+         System.out.println("wrong format or int out of range " + revXstr.toString());
+         return 0;
+      }
+      return revX;
+   }
+
+   static void testReverseInt() {
+      assertEquals(0, reverseInt(0));
+      assertEquals(1, reverseInt(1));
+      assertEquals(21, reverseInt(12));
+      assertEquals(1, reverseInt(10));
+      assertEquals(1, reverseInt(+1));
+      assertEquals(-1, reverseInt(-1));
+      assertEquals(-321, reverseInt(-123));
+      assertEquals(-321, reverseInt(-12300));
+      assertEquals(300000001, reverseInt(1000000003));
+
+   }
+
+   /**
+    * Write a function to find the longest common prefix string amongst an array
+    * of strings.
+    */
+   static public String longestCommonPrefix(String[] strs) {
+
+      // must return immediately if strs has no string at all.
+
+      if (strs == null)
+         return "";
+      if (strs.length == 0)
+         return "";
+
+      StringBuffer sbuffer = new StringBuffer();
+      int charindex = 0;
+      boolean done = false;
+      while (!done) {
+         int index = 0;
+         char tempchar;
+         if (charindex < strs[0].length()) {
+            tempchar = strs[0].charAt(charindex);
+         } else {
+            // hit the end of the string0 already
+            done = true;
+            break;
+         }
+         boolean isCommon = true;
+         // loop each string
+         for (int stringindex = 0; stringindex < strs.length; stringindex++) {
+
+            if (charindex >= strs[stringindex].length()) {
+               // meet a short string, means the common string ends here
+               done = true;
+               isCommon = false;
+               break;
+            }
+            if (tempchar == strs[stringindex].charAt(charindex)) {
+               // good, match
+            } else {
+               // no good, not match stop everything, and it's the end.
+               done = true;
+               isCommon = false;
+               break;
+            }
+         }
+         charindex++;
+         if (isCommon)
+            sbuffer.append(tempchar);
+      }
+
+      return sbuffer.toString();
+   }
+
+   static public void testLongestCommonPrefix() {
+      String[] strs = new String[5];
+      strs[0] = "abcdefgh";
+      strs[4] = "abcd";
+      strs[1] = "abcde";
+      strs[2] = "abcdef";
+      strs[3] = "abcdefg";
+
+      assertEquals("abcd", longestCommonPrefix(strs));
+
+      strs[0] = "abcdefgh";
+      strs[1] = "abcde";
+      strs[2] = "abcdef";
+      strs[3] = "abcdefgzzzz";
+      strs[4] = "zabcde";
+      assertEquals("", longestCommonPrefix(strs));
+
+      strs[0] = "abcdefgh";
+      strs[1] = "abcde";
+      strs[2] = "abcdf";
+      strs[3] = "abcdefgzzzz";
+      strs[4] = "abcde";
+      assertEquals("abcd", longestCommonPrefix(strs));
+
+   }
+
 }
