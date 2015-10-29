@@ -55,18 +55,28 @@ public class MedianOfTwoSortedArraysSolution {
       }
 
       // get med
-      printArray(array3);
 
       return array3;
    }
 
-   static public double findMedianSortedArrays(int[] array1, int[] array2) {
-      double med = 0;
+   static public double findMedianSortedArrays(int[] nums1, int[] nums2) {
 
       // step 1 merge two array
       // step 2 get median
 
-      int[] array3 = mergeTwoSortedArrays(array1, array2);
+      double med = 0;
+
+      if (nums1.length == 0 && nums2.length == 0)
+         return 0;
+
+      int[] array3;
+
+      if (nums1.length == 0)
+         array3 = nums2;
+      else if (nums2.length == 0)
+         array3 = nums1;
+      else
+         array3 = mergeTwoSortedArrays(nums1, nums2);
 
       int size3 = array3.length;
       if (size3 <= 1) {
