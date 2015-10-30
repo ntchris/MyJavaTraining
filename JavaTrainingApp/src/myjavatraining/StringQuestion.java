@@ -2,6 +2,8 @@ package myjavatraining;
 
 import static org.junit.Assert.*;
 
+import java.util.Stack;
+
 /**
  * 
  * 
@@ -143,10 +145,8 @@ public class StringQuestion {
 
       // must return immediately if strs has no string at all.
 
-      if (strs == null)
-         return "";
-      if (strs.length == 0)
-         return "";
+      if (strs == null) return "";
+      if (strs.length == 0) return "";
 
       StringBuffer sbuffer = new StringBuffer();
       int charindex = 0;
@@ -181,8 +181,7 @@ public class StringQuestion {
             }
          }
          charindex++;
-         if (isCommon)
-            sbuffer.append(tempchar);
+         if (isCommon) sbuffer.append(tempchar);
       }
 
       return sbuffer.toString();
@@ -214,4 +213,88 @@ public class StringQuestion {
 
    }
 
+   /**
+    * Given a string containing just the characters '(', ')', '{', '}', '[' and
+    * ']', determine if the input string is valid. The brackets must close in
+    * the correct order, "()" and "()[]{}" are all valid but "(]" and "([)]" are
+    * not. Note: "([])" should be true
+    * 
+    */
+   static public boolean isParenthesesValid(String s) {
+      int index = 0;
+      int Max = s.length();
+      boolean isValid = false;
+
+      Stack stk = new Stack();
+
+      while (index < Max) {
+         char tempChar = s.charAt(index);
+
+         char stkItem = 0;
+         if (!stk.isEmpty()) {
+            stkItem = stk.peek().toString().charAt(0);
+         }
+
+         if (stk.isEmpty()) {
+            // stack is empty, ready to accept any {([, but others are wrong
+            if (tempChar == ')' || tempChar == ']' || tempChar == '}') {
+               isValid = false;
+               return isValid;
+            } else {
+               // it's ( [ { , we accept it.
+               stk.push("" + (tempChar));
+            }
+
+         } else if (stkItem == ('(')) {
+
+            if (tempChar == ']' || tempChar == '}') {
+               isValid = false;
+               return isValid;
+            } else if (tempChar == ')') {
+               stk.pop();
+            } else {
+               stk.push("" + (tempChar));
+            }
+         } else if (stkItem == ('[')) {
+
+            if (tempChar == ')' || tempChar == '}') {
+               isValid = false;
+               return isValid;
+
+            } else if (tempChar == ']') {
+               stk.pop();
+            } else {
+               stk.push("" + (tempChar));
+            }
+         } else if (stkItem == ('{')) {
+
+            if (tempChar == ')' || tempChar == ']') {
+               isValid = false;
+               return isValid;
+
+            } else if (tempChar == '}') {
+               stk.pop();
+            } else {
+               stk.push("" + (tempChar));
+            }
+         }
+         index++;
+      }
+
+      if (stk.isEmpty()) isValid = true;
+      
+      return isValid;
+   }
+
+   static public void testIsParenthesesValid() {
+      assertEquals(true, isParenthesesValid("()[]{}"));
+      assertEquals(false, isParenthesesValid("()[]{"));
+      assertEquals(true, isParenthesesValid("()"));
+      assertEquals(false, isParenthesesValid("()("));
+      assertEquals(false, isParenthesesValid("(){"));
+      assertEquals(false, isParenthesesValid("(){[]"));
+      assertEquals(true, isParenthesesValid("(){[]}"));
+      assertEquals(false, isParenthesesValid("}"));
+
+   }
 }
