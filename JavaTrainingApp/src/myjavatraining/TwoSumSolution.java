@@ -55,6 +55,25 @@ public class TwoSumSolution {
 
    }
    
+   
+   static void testTwoSum() {
+      int[] array = new int[5];
+
+      array[0] = 3;
+      array[1] = 5;
+      array[2] = 4;
+      array[3] = 1;
+      array[4] = 2;
+
+      int[] answer = TwoSumSolution.twoSum(array, 6);
+      if (answer == null) {
+         System.out.println("answer not found , null");
+      } else {
+
+         System.out.println("answer is " + answer[0] + " , " + answer[1]);
+      }
+   }
+   
    static public void test()
    {
       int []array=  {
