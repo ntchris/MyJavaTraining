@@ -22,9 +22,7 @@ class ListNode {
       val = data;
    }
 
-   ListNode() {
-
-   }
+   
 };
 
 public class LinkList {
@@ -57,14 +55,12 @@ public class LinkList {
       ListNode currentNode = mfirstNode;
       ListNode previousNode = null;
       for (int i = 0; i < text.length(); i++) {
-         currentNode = new ListNode();
+         char tempc = text.charAt(i);
+         currentNode = new ListNode(  Integer.parseInt(""+tempc ) );
+         currentNode.next = null;
          if (this.mfirstNode == null) {
             mfirstNode = currentNode;
          }
-
-         char tempc = text.charAt(i);
-         currentNode.val = tempc;
-         currentNode.next = null;
 
          // prepare for next loop
          if (previousNode != null) {
@@ -104,8 +100,8 @@ public class LinkList {
     * @return
     */
    public ListNode insert(ListNode node, int data) {
-      ListNode newNode = new ListNode();
-      newNode.val = data;
+      ListNode newNode = new ListNode(data);
+      
       // if insert after a null, meaning insert as the first char ? so no node
       // is before it
       if (node == null) {
@@ -328,36 +324,39 @@ public class LinkList {
       return;
    }
 
-   static int nodeToInt(ListNode node) {
+  /* static int nodeToInt(ListNode node) {
       if (node == null)
          return 0;
       return Integer.parseInt("" + node.val);
    }
+   */
 
    // a , b , stored in rev order, sum as well
    // a = 123, b=234.
    // so a list is 321, b list is 432
    // sum = 357 as list 753
-   static ListNode addition(ListNode a, ListNode b) {
+   static ListNode addition(ListNode l1, ListNode l2) {
       ListNode sum1stDigit = null;
       boolean excess = false;
-      ListNode nodeA = a;
-      ListNode nodeB = b;
+      ListNode nodeA = l1;
+      ListNode nodeB = l2;
       ListNode nodeSum = sum1stDigit;
 
       while (true) {
          int digitA = 0, digitB = 0;
 
          // get digitA,
-         digitA = nodeToInt(nodeA);
+        
          if (nodeA != null) {
+            digitA = nodeA.val;
             nodeA = nodeA.next;
-         }
+         }else digitA =0;
          // get digitB
-         digitB = nodeToInt(nodeB);
+        
          if (nodeB != null) {
+            digitB = nodeB.val;
             nodeB = nodeB.next;
-         }
+         }else digitB =0;
 
          int sum = digitA + digitB;
          if (excess) {
@@ -369,10 +368,9 @@ public class LinkList {
             excess = false;
          }
          // set sumList.node value
-         ListNode newNode = new ListNode();
-
          int digit = sum % 10;
-         newNode.val = digit;
+         ListNode newNode = new ListNode(digit);
+ 
 
          if (sum1stDigit == null) {
             sum1stDigit = newNode;
@@ -415,7 +413,7 @@ public class LinkList {
       testAdd(123, 345);
       testAdd(9876, 1234);
       testAdd(0, 0);
-      testAdd(999999999, 1);
+      testAdd(9999999, 1);
 
    }
 
