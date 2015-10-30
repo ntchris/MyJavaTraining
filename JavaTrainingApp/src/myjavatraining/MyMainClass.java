@@ -119,7 +119,7 @@ public class MyMainClass {
       //TwoSumSolution.test();
       
       //LongestSubstringSolution.test();
-      LinkList.testMergeManyLinkList();
+      StringQuestion.testLongStringToArrayList();
       
    }
 

@@ -1,6 +1,7 @@
 package myjavatraining;
 
 import static org.junit.Assert.*;
+import java.util.ArrayList;
 
 /**
  * 
@@ -211,6 +212,57 @@ public class StringQuestion {
       strs[3] = "abcdefgzzzz";
       strs[4] = "abcde";
       assertEquals("abcd", longestCommonPrefix(strs));
+
+   }
+
+   // Can not break word, can not break http url.
+   static public ArrayList longStringToArrayList(String longString, int maxSizeEachPiece) throws Exception {
+      ArrayList<String> al = new ArrayList<String>();
+
+      StringBuffer sbuffer = new StringBuffer();
+
+      String subStrings[] = longString.split(" ");
+      int index = 0;
+      while (true) {
+         if (index >= subStrings.length) {
+            // do something before break and send. ??
+            break;
+         }
+
+         if(subStrings[index].length()> maxSizeEachPiece) throw new Exception("Word size too large "+subStrings[index] );
+         
+         if ((sbuffer.length() + subStrings[index].length() + 1)< maxSizeEachPiece) {
+            // this buffer is not full, append
+            if(sbuffer.length()!=0) sbuffer.append(" ");
+            sbuffer.append(subStrings[index]);
+
+         } else {
+            al.add(sbuffer.toString());
+            sbuffer.setLength(0);
+            sbuffer.append(subStrings[index]);
+
+         }
+         
+         index++;
+      }
+      if (sbuffer.length() > 0) {
+         al.add(sbuffer.toString());
+      }
+      return al;
+   }
+
+   static public void testLongStringToArrayList()     {
+
+      String inputMessage = "Hi , I’m using this amazing http://ggooddgooow.com/service/?help, come and check it out ! awesome !! very good!!!";
+      ArrayList <String>al=null;
+      try {
+         al = longStringToArrayList(inputMessage, 20);
+      } catch (Exception e) {
+         System.out.println("Exception " + e);
+           
+      }
+
+      System.out.println("Output is " + al);
 
    }
 
