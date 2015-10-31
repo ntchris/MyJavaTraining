@@ -119,7 +119,8 @@ public class MyMainClass {
       //TwoSumSolution.test();
       
       //LongestSubstringSolution.test();
-      LinkList.testMergeManyLinkList();
+      //LinkList.testMergeManyLinkList();
+      ParenthesesSolution.testGenerateParenthesis();
       
    }
 
