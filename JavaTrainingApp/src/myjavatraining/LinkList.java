@@ -956,11 +956,38 @@ public class LinkList {
     * implement both?
     */
 
-   static public ListNode reverseListRecurse(ListNode head) {
+   // return newHead
+   static public ListNode reverseListRecurse(ListNode head, ListNode prevNewHead) {
 
+      if (head == null) return null;
+
+      if (prevNewHead == null) return null;
+
+      ListNode newHead = prevNewHead.next;
+
+      if (newHead == null) return head;
+
+      ListNode saveNewHeadNext = newHead.next;
+      prevNewHead.next = saveNewHeadNext;
+      newHead.next = head;
+      newHead = reverseListRecurse(newHead, prevNewHead );
+
+      return newHead;
    }
 
    static public ListNode reverseList(ListNode head) {
+      ListNode newHead = null;
+
+      if (head == null) return null;
+      if (head.next == null) return head;
+
+      newHead = reverseListRecurse(head, head);
+
+      return newHead;
+   }
+
+   // Solution one, iteration
+   static public ListNode reverseListIteration(ListNode head) {
       if (head == null) return null;
 
       // nothing to reverse
@@ -993,6 +1020,18 @@ public class LinkList {
       ListNode head = linklist.mfirstNode;
       ListNode newHead = reverseList(head);
       printLinkList(newHead);
+      
+      
+      linklist.createALinkList("1");
+        head = linklist.mfirstNode;
+        newHead = reverseList(head);
+      printLinkList(newHead);
+      
+      linklist.createALinkList("12");
+      head = linklist.mfirstNode;
+      newHead = reverseList(head);
+    printLinkList(newHead);
+      
    }
 
 };
