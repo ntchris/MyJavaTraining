@@ -126,7 +126,11 @@ public class MyMainClass {
 
       //LinkList.testputKthNodeOnHead();
       // LinkList.testReverse();
-      ArraySolution.testSearchInsert();
+      //ArraySolution.testSearchInsert();
+      //LongestSubstringSolution.test();
+      
+      ArraySolution.testRemoveTargetElement();
+      
    }
 
 }

@@ -131,4 +131,100 @@ public class ArraySolution {
       targetIdx = searchInsert(array1, 8);
       assertEquals(4, targetIdx);
    }
+
+   /*
+    * Given an array and a value, remove all instances of that value in place
+    * and return the new length.
+    * 
+    * The order of elements can be changed. It doesn't matter what you leave
+    * beyond the new length.
+    */
+
+   static public int removeElement(int[] nums, int val) {
+      int newLen = 0;
+      int maxLen = nums.length;
+      int oldIndex = 0;
+
+      while (oldIndex < maxLen) {
+         if (nums[oldIndex] != val) {
+            if (newLen != oldIndex) nums[newLen] = nums[oldIndex];
+
+            newLen++;
+            oldIndex++;
+
+         } else {
+            oldIndex++;
+            if (oldIndex >= maxLen) break;
+            nums[newLen] = nums[oldIndex];
+
+         }
+      }
+      return newLen;
+   }
+
+   static public void testRemoveTargetElement() {
+
+      int[] array1234 = new int[4];
+      array1234[0] = 1;
+      array1234[1] = 2;
+      array1234[2] = 3;
+      array1234[3] = 4;
+
+      int answer1234 = removeElement(array1234, 1);
+      assertEquals(3, answer1234);
+      for (int i = 0; i < answer1234; i++)
+         System.out.print("  " + array1234[i]);
+
+      System.out.println();
+
+      int[] array45 = new int[2];
+      array45[0] = 4;
+      array45[1] = 5;
+      int answer45 = removeElement(array45, 4);
+      assertEquals(1, answer45);
+      for (int i = 0; i < answer45; i++)
+         System.out.print("  " + array45[i]);
+
+      System.out.println();
+
+      int[] array33 = new int[2];
+      array33[0] = 3;
+      array33[1] = 3;
+      int answer33 = removeElement(array33, 3);
+      assertEquals(0, answer33);
+      for (int i = 0; i < answer33; i++)
+         System.out.print("  " + array33[i]);
+
+      System.out.println();
+
+      int[] array = new int[1];
+      int answer0 = removeElement(array, 0);
+      assertEquals(0, answer0);
+      for (int i = 0; i < answer0; i++)
+         System.out.print("  " + array[i]);
+
+      System.out.println();
+
+      int[] array1 = new int[2];
+      array1[0] = 1;
+      array1[1] = 2;
+      int answer1 = removeElement(array1, 1);
+      assertEquals(1, answer1);
+      for (int i = 0; i < answer1; i++)
+         System.out.print("  " + array1[i]);
+      System.out.println();
+
+      int[] array2 = new int[3];
+      array2[0] = 1;
+      array2[1] = 2;
+      array2[2] = 3;
+
+      int answer2 = removeElement(array2, 2);
+      assertEquals(2, answer2);
+      for (int i = 0; i < answer2; i++)
+         System.out.print("  " + array2[i]);
+      System.out.println();
+
+   }
+
 }
