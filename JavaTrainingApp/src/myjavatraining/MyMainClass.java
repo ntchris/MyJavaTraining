@@ -126,7 +126,7 @@ public class MyMainClass {
 
       //LinkList.testputKthNodeOnHead();
       // LinkList.testReverse();
-      ArraySolution.testremoveDuplicates();
+      ArraySolution.testSearchInsert();
    }
 
 }
