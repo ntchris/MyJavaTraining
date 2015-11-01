@@ -50,19 +50,26 @@ public class ParenthesesSolution {
       String stringExp = "(";
       int left = n - 1;
       int right = 1;
+      System.out.println("Start:" + stringExp + " "+ left + " " + right);
+
       generateParenthesisRecurse(stringExp, left, right, al);
 
       return al;
    }
-
+ 
    static public void generateParenthesisRecurse(String exp, int left, int right, ArrayList al) {
+      
+      System.out.println("input:" + exp + " "+ left + " " + right);
       if (left == 0 && right == 0) {
          al.add(exp);
+         System.out.println("done");
+         System.out.println();
          return;
       }
-
+      //option 1, add ( first
       if (left > 0) generateParenthesisRecurse(exp + "(", left - 1, right + 1, al);
 
+      //option 2 add )
       if (right > 0) generateParenthesisRecurse(exp + ")", left, right - 1, al);
 
    }

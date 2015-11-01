@@ -63,7 +63,7 @@ public class LinkList {
          }
 
          char tempc = text.charAt(i);
-         currentNode.val = tempc;
+         currentNode.val = Integer.parseInt("" + tempc);
          currentNode.next = null;
 
          // prepare for next loop
@@ -86,6 +86,8 @@ public class LinkList {
    }
 
    static public void printLinkList(ListNode headNode) {
+
+      if (headNode == null) System.out.print("Null Node");
       ListNode currentNode = headNode;
       while (currentNode != null) {
          System.out.print(currentNode.val);
@@ -329,8 +331,7 @@ public class LinkList {
    }
 
    static int nodeToInt(ListNode node) {
-      if (node == null)
-         return 0;
+      if (node == null) return 0;
       return Integer.parseInt("" + node.val);
    }
 
@@ -383,8 +384,7 @@ public class LinkList {
          }
 
          // check if should end
-         if (nodeA == null && nodeB == null && !excess)
-            break;
+         if (nodeA == null && nodeB == null && !excess) break;
       }
 
       return sum1stDigit;
@@ -436,11 +436,9 @@ public class LinkList {
    static public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
       ListNode l3head = null, l3node = null;
 
-      if (l1 == null)
-         return l2;
+      if (l1 == null) return l2;
 
-      if (l2 == null)
-         return l1;
+      if (l2 == null) return l1;
 
       if (l1.val < l2.val) {
          l3head = l1;
@@ -477,24 +475,20 @@ public class LinkList {
 
    }
 
-   //This is slow, why??  because one list could be extremely long
-   static public ListNode mergeKListsFor(ListNode[] lists  ) {
- 
-      if (lists == null)
-         return null;
+   // This is slow, why?? because one list could be extremely long
+   static public ListNode mergeKListsFor(ListNode[] lists) {
+
+      if (lists == null) return null;
 
       int listsCount = lists.length;
 
-      if (listsCount == 0)
-         return null;
+      if (listsCount == 0) return null;
 
-      if (listsCount == 1)
-         return lists[0];
-      
+      if (listsCount == 1) return lists[0];
+
       if (listsCount == 2) {
          return mergeTwoLists(lists[0], lists[1]);
-      } 
-      
+      }
 
       ListNode resultListNode = null;
 
@@ -502,30 +496,27 @@ public class LinkList {
          resultListNode = mergeTwoLists(lists[i], resultListNode);
       }
 
-    return resultListNode;
+      return resultListNode;
 
    }
 
    static public ListNode mergeKLists(ListNode[] lists) {
 
       return mergeKLists(lists, 0, lists.length - 1);
-     
+
    }
 
    static public ListNode mergeKLists(ListNode[] lists, int fromlist, int tolist) {
 
-      if (lists == null)
-         return null;
+      if (lists == null) return null;
 
-      if (lists.length == 0)
-         return null;
+      if (lists.length == 0) return null;
 
-      if (fromlist == tolist)
-         return lists[fromlist];
+      if (fromlist == tolist) return lists[fromlist];
 
       ListNode resultListNode = null;
 
-      //base case
+      // base case
       if ((fromlist + 1) == tolist) {
          return mergeTwoLists(lists[fromlist], lists[tolist]);
       } else {
@@ -533,7 +524,7 @@ public class LinkList {
          if ((mid + 1) <= tolist) {
             return mergeTwoLists(mergeKLists(lists, fromlist, mid), mergeKLists(lists, mid + 1, tolist));
          } else {
-            return mergeTwoLists(mergeKLists(lists, fromlist, mid),  lists [ tolist]);
+            return mergeTwoLists(mergeKLists(lists, fromlist, mid), lists[tolist]);
 
          }
       }
@@ -611,8 +602,6 @@ public class LinkList {
       System.out.println("linklist d is ");
       printLinkList(listd);
 
-  
-
       ListNode l1_short = new ListNode('1');
       ListNode l2_short = new ListNode('4');
       ListNode l3_short = new ListNode('7');
@@ -627,12 +616,8 @@ public class LinkList {
       System.out.println("linklist d is ");
       printLinkList(listd);
 
-      
-  
-
    }
 
-   
    public static void testMergeManyLinkListFor() {
       ListNode l1_a = new ListNode('1');
       ListNode l1_b = new ListNode('4');
@@ -672,11 +657,10 @@ public class LinkList {
       lists[1] = l2_a;
       lists[2] = l3_a;
 
-      ListNode   
-      
+      ListNode
+
       listd = mergeKListsFor(lists);
 
-      
       System.out.println("linklist d is ");
       printLinkList(listd);
 
@@ -689,13 +673,326 @@ public class LinkList {
       lists[2] = l3_short;
       lists[3] = l4_short;
 
-  
-      
       listd = mergeKListsFor(lists);
       System.out.println("linklist d is ");
       printLinkList(listd);
 
    }
-   
-   
+
+   /**
+    * Given a linked list, swap every two adjacent nodes and return its head.
+    * 
+    * For example, Given 1->2->3->4, you should return the list as 2->1->4->3.
+    * 
+    * Your algorithm should use only constant space. You may not modify the
+    * values in the list, only nodes itself can be changed.
+    */
+   static public ListNode swapPairs(ListNode head) {
+      if (head == null) return null;
+      // it has only one item
+      if (head.next == null) return head;
+
+      ListNode result = head.next;
+      ListNode tempFor3rd = head.next.next;
+      result.next = head;
+      head.next = tempFor3rd;
+
+      ListNode fromNodeNext = result.next;
+      while (fromNodeNext.next != null && fromNodeNext.next.next != null) {
+
+         ListNode node1 = fromNodeNext.next;
+         ListNode node2 = fromNodeNext.next.next;
+         ListNode temp = node2.next;
+
+         fromNodeNext.next = node2;
+         node2.next = node1;
+         node1.next = temp;
+         fromNodeNext = node1;
+
+      }
+      return result;
+   }
+
+   static public void testSwapPairs() {
+      LinkList linklist = new LinkList();
+      linklist.createALinkList("21");
+
+      System.out.println("the list is ");
+      linklist.printLinkList();
+      ListNode newnode = swapPairs(linklist.mfirstNode);
+      printLinkList(newnode);
+
+      linklist.createALinkList("2143");
+
+      System.out.println("the list is ");
+      linklist.printLinkList();
+      newnode = swapPairs(linklist.mfirstNode);
+      printLinkList(newnode);
+
+      linklist.createALinkList("21436");
+
+      System.out.println("the list is ");
+      linklist.printLinkList();
+      newnode = swapPairs(linklist.mfirstNode);
+      printLinkList(newnode);
+   }
+   /// knextnode.next , output paramiter, use it to return kth item's next tiem
+
+   static ListNode getPrevKthNode(ListNode head, int k) {
+      if (head == null) return null;
+      if (k == 0) return head;
+      if (k == 1) return head;
+      if (k == 2) return head;
+      k--;
+      ListNode prevKthItem = head;
+      int i = 1;
+      while (true) {
+         if (i + 1 > k) break;
+         if (prevKthItem.next != null)
+            prevKthItem = prevKthItem.next;
+         else
+            break;
+         i++;
+
+      }
+
+      if (i < k) {
+         return null;
+      }
+      return prevKthItem;
+   }
+
+   // if prevhead is null then the kth is the new head.
+
+   // if prevhead is a node then prevhead->next = newhead
+   // if new head, return new head
+   static ListNode putKthNodeOnHead(ListNode prevhead, ListNode prevKthNode) {
+      // there is no Kth node!!
+
+      if (prevKthNode == null || prevKthNode.next == null) return null;
+
+      ListNode kth = prevKthNode.next;
+      if ((prevhead == null) || (prevhead.next == null)) {
+
+         prevKthNode.next = prevKthNode.next.next;
+         return kth;
+
+      } else {
+
+         kth.next = prevhead.next;
+         return null;
+      }
+
+   }
+
+   // if prevhead is null then the kth is the new head.
+
+   // if prevhead is a node then prevhead->next = newhead
+   // if new head, return new head
+   static ListNode putKthNodeOnAfterHead(ListNode prevhead, ListNode prevKthNode) {
+      // there is no Kth node!!
+
+      if (prevKthNode == null || prevKthNode.next == null) return null;
+
+      ListNode kth = prevKthNode.next;
+      if ((prevhead == null) || (prevhead.next == null)) {
+
+         prevKthNode.next = prevKthNode.next.next;
+         return kth;
+
+      } else {
+
+         kth.next = prevhead.next;
+         return null;
+      }
+
+   }
+
+   /*
+    * static ListNode putKthNodeOnHead(ListNode head, int k, ListNode
+    * forKthNodeNext) { if (head == null) return null; if (k == 0) return head;
+    * if (k == 1) return head;
+    * 
+    * ListNode kthItem = head; ListNode prevKthItem = null; int i = 1; while
+    * (true) { prevKthItem = kthItem;
+    * 
+    * if (kthItem.next != null) kthItem = kthItem.next; else break; i++; if (i
+    * >= k) break;
+    * 
+    * }
+    * 
+    * if (i < k) { return null; }
+    * 
+    * forKthNodeNext.next = kthItem.next; prevKthItem.next = kthItem.next;
+    * ListNode savehead = head; head = kthItem; kthItem.next = savehead;
+    * 
+    * return kthItem; }
+    */
+
+   static public ListNode reverseKGroup(ListNode head, int k) {
+      ListNode result = null;
+      if (k <= 1) return head;
+
+      ListNode prevkthNode;
+      ListNode newHead = head;
+
+      // if the list has K ??? if not do nothing.
+      // prevkthNode = getPrevKthNode(head, k);
+      // if (prevkthNode.next == null) return head;
+
+      ListNode startNode = head;
+      ListNode newRoundStartNode = head;
+
+      do {
+
+         prevkthNode = getPrevKthNode(newRoundStartNode, k);
+         if (result == null) {
+            if (prevkthNode == null) {
+
+               result = head;
+               return result;
+            } else {
+               result = prevkthNode.next;
+            }
+
+         }
+         startNode = newRoundStartNode;
+         ListNode prevINode = null;
+         // continue put 2item to head, 3th item, 4 item , ... kth item to head.
+         for (int i = 2; i <= k; i++) {
+
+            prevINode = getPrevKthNode(startNode, i);
+
+            startNode = putKthNodeOnHead(startNode, prevINode);
+
+            if (i == k) {
+               // prepare for next round
+               if (prevINode != null && prevINode.next != null)
+                  newRoundStartNode = prevINode.next.next;
+               else {
+                  newRoundStartNode = null;
+               }
+            }
+         }
+         // startNode = prevINode.next.next;
+         if (newRoundStartNode == null) break;
+
+      } while (true);
+
+      return result;
+
+   }
+
+   static public void testputKthNodeOnHead() {
+      LinkList linklist = new LinkList();
+      /*
+       * linklist.createALinkList("12"); ListNode newHead =
+       * putKthNodeOnHead(linklist.mfirstNode, 2); printLinkList(newHead);
+       * 
+       * linklist.createALinkList("1"); newHead =
+       * putKthNodeOnHead(linklist.mfirstNode, 1); printLinkList(newHead);
+       * 
+       * linklist.createALinkList("123"); newHead =
+       * putKthNodeOnHead(linklist.mfirstNode, 2); printLinkList(newHead);
+       * linklist.createALinkList("123"); newHead =
+       * putKthNodeOnHead(linklist.mfirstNode, 3); printLinkList(newHead);
+       */
+      linklist.createALinkList("12");
+      printLinkList(linklist.mfirstNode);
+      ListNode newHead = reverseKGroup(linklist.mfirstNode, 2);
+      System.out.print(" k=" + 2);
+      System.out.println();
+
+      printLinkList(newHead);
+
+      System.out.println();
+
+      linklist.createALinkList("12");
+      printLinkList(linklist.mfirstNode);
+      System.out.print(" k=" + 3);
+
+      newHead = reverseKGroup(linklist.mfirstNode, 3);
+      System.out.println();
+
+      printLinkList(newHead);
+
+      /*
+       * linklist.createALinkList("123");
+       * 
+       * newHead = reverseKGroup(linklist.mfirstNode, 2);
+       * printLinkList(newHead);
+       */
+   }
+
+   static public void testGetKthNode() {
+      LinkList linklist = new LinkList();
+      linklist.createALinkList("123");
+
+      ListNode prevkth = getPrevKthNode(linklist.mfirstNode, 4);
+      printLinkList(prevkth);
+      ListNode newHead = putKthNodeOnHead(linklist.mfirstNode, prevkth);
+      printLinkList(newHead);
+
+      // ListNode newHead = putKthNodeOnHead(linklist.mfirstNode, prevKth, kth);
+
+   }
+
+   static public void testReverseKGroup() {
+      LinkList linklist = new LinkList();
+      linklist.createALinkList("1234");
+
+      ListNode newHead = reverseKGroup(linklist.mfirstNode, 2);
+      printLinkList(newHead);
+
+   }
+
+   // reverse the linklist
+   /*
+    * Reverse a singly linked list.
+    * 
+    * click to show more hints. Hint:
+    * 
+    * A linked list can be reversed either iteratively or recursively. Could you
+    * implement both?
+    */
+
+   static public ListNode reverseListRecurse(ListNode head) {
+
+   }
+
+   static public ListNode reverseList(ListNode head) {
+      if (head == null) return null;
+
+      // nothing to reverse
+      if (head.next == null) return head;
+
+      ListNode newHead = head.next;
+      ListNode oldHead = head;
+      ListNode prevNode = head;
+      while (newHead != null) {
+         ListNode saveNewHeadNext = newHead.next;
+         prevNode.next = newHead.next;
+         newHead.next = oldHead;
+
+         if (saveNewHeadNext == null)
+            break;
+         else {
+            oldHead = newHead;
+            newHead = saveNewHeadNext;
+
+         }
+      }
+      return newHead;
+
+   }
+
+   static public void testReverse() {
+
+      LinkList linklist = new LinkList();
+      linklist.createALinkList("12345");
+      ListNode head = linklist.mfirstNode;
+      ListNode newHead = reverseList(head);
+      printLinkList(newHead);
+   }
+
 };

@@ -113,15 +113,19 @@ public class MyMainClass {
       // NestedListSumTest.test();
       // MyMathFunctions.test();
       // MyBinaryTree.testPrintByLevel();
-      
+
       // StringQuestion.testLongestCommonPrefix();
-      
-      //TwoSumSolution.test();
-      
-      //LongestSubstringSolution.test();
-      //LinkList.testMergeManyLinkList();
-      ParenthesesSolution.testGenerateParenthesis();
-      
+
+      // TwoSumSolution.test();
+
+      // LongestSubstringSolution.test();
+      // LinkList.testMergeManyLinkList();
+      // ParenthesesSolution.testGenerateParenthesis();
+
+      // LinkList.testSwapPairs();
+
+      //LinkList.testputKthNodeOnHead();
+      LinkList.testReverse();
    }
 
 }
