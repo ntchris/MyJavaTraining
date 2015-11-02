@@ -28,8 +28,7 @@ public class MyMathFunctions {
       do {
          diff = result * result - x;
 
-         if (Math.abs(diff) < Small)
-            break;
+         if (Math.abs(diff) < Small) break;
          result = (result + x / result) / 2;
 
       } while (true);
@@ -44,13 +43,10 @@ public class MyMathFunctions {
    }
 
    static public double getFactorial(double x) {
-      if (x < 0)
-         throw new IllegalArgumentException("Must not be negative");
+      if (x < 0) throw new IllegalArgumentException("Must not be negative");
       double result;
-      if (x == 0)
-         return 1;
-      if (x == 1)
-         return 1;
+      if (x == 0) return 1;
+      if (x == 1) return 1;
 
       result = x * getFactorial(x - 1.0);
       return result;
@@ -82,8 +78,7 @@ public class MyMathFunctions {
       int test = 2;
       int stopAt = x / 2 + 1;
       do {
-         if (x % test == 0)
-            return false;
+         if (x % test == 0) return false;
          test++;
 
       } while (test <= stopAt);
@@ -147,6 +142,57 @@ public class MyMathFunctions {
       testGetPrimeFactor(20);
       testGetPrimeFactor(100);
       testGetPrimeFactor(10002);
+
+   }
+
+   // Divide Two Integers
+   // Divide two integers without using multiplication, division and mod
+   // operator.If it is overflow,return MAX_INT.
+   static public int divide(int dividend, int divisor) {
+      if (dividend == 0) return 0;
+      if (divisor == 0) return dividend;
+
+      if (divisor == 1) return dividend;
+      if (divisor == -1) return dividend * (-1);
+      if (dividend >= Integer.MAX_VALUE) return dividend;
+
+      boolean negat = false;
+      if (((dividend < 0) && (divisor > 0)) || ((dividend > 0) && (divisor < 0))) {
+         dividend = Math.abs(dividend);
+         divisor = Math.abs(divisor);
+         negat = true;
+      } else if (dividend < 0 && divisor < 0) {
+         dividend = Math.abs(dividend);
+         divisor = Math.abs(divisor);
+      }
+      int answer = 0;
+      int temp = dividend;
+      do {
+         temp = temp - divisor;
+         if (temp < 0) break;
+         answer++;
+         if (answer == Integer.MAX_VALUE) break;
+      } while (true);
+
+      if (negat) answer = answer * (-1);
+
+      return answer;
+
+   }
+
+   static public void testDivide() {
+
+      int answer = divide(-2147483648, -3);
+      System.out.println(answer);
+
+      assertEquals(1, divide(-1, -1));
+      assertEquals(1, divide(1, 1));
+      assertEquals(0, divide(1, 2));
+      assertEquals(4, divide(4, 1));
+      assertEquals(2, divide(5, 2));
+      assertEquals(50, divide(100, 2));
+      assertEquals(-50, divide(100, -2));
+      assertEquals(-10, divide(-10, 1));
 
    }
 }

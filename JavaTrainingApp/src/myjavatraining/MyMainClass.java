@@ -129,7 +129,9 @@ public class MyMainClass {
       //ArraySolution.testSearchInsert();
       //LongestSubstringSolution.test();
       
-      ArraySolution.testRemoveTargetElement();
+      //ArraySolution.testRemoveTargetElement();
+      //MyMathFunctions.testDivide();
+      SodukuSolution.testSudo();
       
    }
 
