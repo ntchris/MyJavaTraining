@@ -1,5 +1,7 @@
 package myjavatraining;
 
+import static org.junit.Assert.*;
+
 /**
  * 
  * 
@@ -40,9 +42,19 @@ public class NestedListSumTest {
    static void test() {
       int sum = getNestedListSum("{{1,1},2, {1,1}}");
       System.out.println(sum);
+      assertEquals(10,  sum);
 
       sum = getNestedListSum("{2, {4, {6  }}}");
       System.out.println(sum);
+      assertEquals(28,  sum);
+      
+      sum = getNestedListSum("{1,{4,{6}}}");
+      System.out.println(sum);
+      assertEquals(27,  sum);
+      
+      
+   
+
    }
 
 }
