@@ -153,18 +153,18 @@ public class LongestSubstringSolution {
    // pwwkew longest substring is wke
    static public int lengthOfLongestSubstringHashMap(String str) {
 
-      HashMap<String, Integer> indices = new HashMap<String, Integer>();
+      HashMap<String, Integer> map = new HashMap<String, Integer>();
       int length = 0;
       int start = -1;
       int end = 0;
       for (end = 0; end < str.length(); end++) {
-         String ch = "" + str.charAt(end);
-         if (indices.containsKey(ch)) {
-            int newstart = indices.get(ch);
+         String substring = "" + str.charAt(end);
+         if (map.containsKey(ch)) {
+            int newstart = map.get(substring);
             start = Math.max(start, newstart);
          }
          length = Math.max(length, end - start);
-         indices.put(ch, end);
+         map.put(substring, end);
       }
       return length;
 
